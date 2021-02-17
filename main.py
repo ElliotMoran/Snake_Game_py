@@ -1,6 +1,7 @@
 #! pypy3
 import pygame
 import settings
+from board import Board
 
 # function for the main loop
 def main_loop():
@@ -10,6 +11,8 @@ def main_loop():
     screen = pygame.display.set_mode(
         (settings.width, settings.height), pygame.FULLSCREEN)
     clock = pygame.time.Clock()
+
+    board = Board(9, 9, 50)
 
     # main loop
     running = True
@@ -21,6 +24,8 @@ def main_loop():
                 if event.key == pygame.K_ESCAPE:
                     exit()
 
+        board.draw(screen)
+        
         pygame.display.flip()
         clock.tick(settings.fps)
 
