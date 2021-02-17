@@ -2,6 +2,7 @@
 import pygame
 import settings
 from board import Board
+from player import Player
 
 # function for the main loop
 def main_loop():
@@ -14,6 +15,9 @@ def main_loop():
 
     board = Board(9, 9, 50)
 
+    snake = Player(4, 5)
+    board.add_snake(snake)
+
     # main loop
     running = True
     while running:
@@ -24,8 +28,10 @@ def main_loop():
                 if event.key == pygame.K_ESCAPE:
                     exit()
 
+        snake.movement()
+        board.update()
         board.draw(screen)
-        
+
         pygame.display.flip()
         clock.tick(settings.fps)
 
