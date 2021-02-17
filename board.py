@@ -1,4 +1,5 @@
 import pygame
+import settings
 
 
 class Board:
@@ -6,6 +7,9 @@ class Board:
         self.size_x = size_x    # number of cells in width
         self.size_y = size_y    # number of cells in height
         self.cell_size = cell_size
+
+        self.board = [[0] * self.size_x for _ in range(self.size_y)]
+        self.board[1][1] = 1
 
         self.left = 10
         self.top = 10
@@ -18,4 +22,20 @@ class Board:
             self.cell_size = cell_size
 
     def draw(self, screen):
-        pass
+        for col in range(self.size_y):
+            for row in range(self.size_x):
+                # draw contour
+                pygame.draw.rect(screen, settings.WHITE, (self.left + row * self.cell_size,
+                                                          self.top + col * self.cell_size, self.cell_size, self.cell_size), 1)
+
+                color = settings.BLACK
+                if self.board[col][row] == 0:
+                    # draw nothing
+                    pygame.draw.rect(screen, settings.BLACK, (self.left + row * self.cell_size + 1,
+                                                              self.top + col * self.cell_size + 1, self.cell_size - 2, self.cell_size - 2))
+
+                elif self.board[col][row] == 1:
+                    # draw apple
+                    pygame.draw.circle(screen, settings.RED, (self.left + row * self.cell_size + self.cell_size // 2, 
+                                                              self.top + col * self.cell_size + self.cell_size // 2), self.cell_size // 2)
+                                                              
