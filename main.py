@@ -2,7 +2,7 @@
 import pygame
 import settings
 
-
+# function for the main loop
 def main_loop():
     pygame.init()
     pygame.display.set_caption(settings.caption)
@@ -11,6 +11,7 @@ def main_loop():
         (settings.width, settings.height), pygame.FULLSCREEN)
     clock = pygame.time.Clock()
 
+    # main loop
     running = True
     while running:
         for event in pygame.event.get():
