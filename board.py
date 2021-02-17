@@ -1,9 +1,14 @@
 import pygame
 import settings
 
+# board notation:
+#  -1 - snake
+#   0 - nothing
+#   1 - apple
+
 
 class Board:
-    def __inti__(self, size_x, size_y, cell_size):
+    def __init__(self, size_x, size_y, cell_size):
         self.size_x = size_x    # number of cells in width
         self.size_y = size_y    # number of cells in height
         self.cell_size = cell_size
@@ -37,5 +42,5 @@ class Board:
                 elif self.board[col][row] == 1:
                     # draw apple
                     pygame.draw.circle(screen, settings.RED, (self.left + row * self.cell_size + self.cell_size // 2, 
-                                                              self.top + col * self.cell_size + self.cell_size // 2), self.cell_size // 2)
+                                                              self.top + col * self.cell_size + self.cell_size // 2), self.cell_size // 2 - 2)
                                                               
