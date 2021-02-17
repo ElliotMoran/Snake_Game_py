@@ -14,7 +14,7 @@ class Board:
         self.cell_size = cell_size
 
         self.board = [[0] * self.size_x for _ in range(self.size_y)]
-        self.board[1][1] = 1
+        self.snake = None
 
         self.left = 10
         self.top = 10
@@ -25,6 +25,19 @@ class Board:
         self.top = top
         if cell_size != -1:
             self.cell_size = cell_size
+
+    def add_snake(self, player):
+        self.snake = player
+
+    def update(self):
+        for col in range(self.size_y):
+            for row in range(self.size_x):
+                # change board where snake
+                for snake_coords in self.snake.snake_part_coords:
+                    if col == snake_coords[1] and row == snake_coords[0]:
+                        self.board[col][row] = -1
+                    else:
+                        self.board[col][row] = 0
 
     def draw(self, screen):
         for col in range(self.size_y):
@@ -42,5 +55,16 @@ class Board:
                 elif self.board[col][row] == 1:
                     # draw apple
                     pygame.draw.circle(screen, settings.RED, (self.left + row * self.cell_size + self.cell_size // 2, 
+                                                              self.top + col * self.cell_size + self.cell_size // 2), self.cell_size // 2 - 2)
+
+                elif self.board[col][row] == -1:
+                    snake_head_x, snake_head_y = self.snake.get_head_pos()
+                    if col == snake_head_y and row == snake_head_x:
+                        # draw snake head
+                        pygame.draw.circle(screen, settings.GREEN, (self.left + row * self.cell_size + self.cell_size // 2, 
+                                                              self.top + col * self.cell_size + self.cell_size // 2), self.cell_size // 2 - 2, 1)
+                    else:
+                        # draw snake bode
+                        pygame.draw.circle(screen, settings.GREEN, (self.left + row * self.cell_size + self.cell_size // 2, 
                                                               self.top + col * self.cell_size + self.cell_size // 2), self.cell_size // 2 - 2)
                                                               
