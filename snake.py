@@ -5,8 +5,8 @@ import settings
 class Snake:
     def __init__(self):
         self.snake_head_pos = [100, 500]
-        self.snake_pos = [self.snake_head_pos, [
-            90, 500], [80, 500]]  # first position is head
+        self.snake_pos = [self.snake_head_pos,  # first position is head
+                          [98, 500], [96, 500], [94, 500], [92, 500], [90, 500], [88, 500], [86, 500], [84, 500], [82, 500], [80, 500]]
 
         self.color = settings.GREEN
         self.direction = "RIGHT"
@@ -21,6 +21,18 @@ class Snake:
             # change direction
             self.direction = self.change_to
 
+    # collision and off-screen check
+    def check_collision(self) -> bool:
+        # off-sceen check
+        if self.snake_head_pos[0] < 1 or self.snake_head_pos[0] > settings.width - 10:
+            # off-screen
+            return False
+        if self.snake_head_pos[1] < 1 or self.snake_head_pos[1] > settings.height - 10:
+            # off-screen
+            return False
+
+        return True
+
     def move(self):
         # check button pressed
         keys = pygame.key.get_pressed()
@@ -32,24 +44,22 @@ class Snake:
             self.change_to = "RIGHT"
         if keys[pygame.K_LEFT] or keys[pygame.K_a]:
             self.change_to = "LEFT"
-        
 
     def movement(self):
         self.move()
         self.change_direction()
 
         if self.direction == "UP":
-            self.snake_head_pos[1] -= 1
+            self.snake_head_pos[1] -= 2
         elif self.direction == "DOWN":
-            self.snake_head_pos[1] += 1
+            self.snake_head_pos[1] += 2
         elif self.direction == "RIGHT":
-            self.snake_head_pos[0] += 1
+            self.snake_head_pos[0] += 2
         elif self.direction == "LEFT":
-            self.snake_head_pos[0] -= 1
+            self.snake_head_pos[0] -= 2
 
         self.snake_pos.insert(0, list(self.snake_head_pos))
         self.snake_pos.pop()
-
 
     def draw(self, screen):
         for pos in self.snake_pos:

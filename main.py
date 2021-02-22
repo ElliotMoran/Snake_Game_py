@@ -2,6 +2,7 @@
 import pygame
 import settings
 from snake import Snake
+from food import Food
 
 
 # function for the main loop
@@ -14,6 +15,7 @@ def main_loop():
     clock = pygame.time.Clock()
 
     snake = Snake()
+    food = Food()
 
     # main loop
     running = True
@@ -26,8 +28,12 @@ def main_loop():
                     exit()
 
         screen.fill(settings.BLACK)
+
         snake.movement()
+        if not snake.check_collision():
+            running = False
         snake.draw(screen)
+        food.draw(screen)
 
         pygame.display.flip()
         clock.tick(settings.fps)

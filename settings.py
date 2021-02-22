@@ -2,7 +2,7 @@
 caption = "Snake Game"
 width = 1280
 height = 720
-fps = 15
+fps = 60
 
 # colors
 WHITE = (255, 255, 255)
