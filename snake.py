@@ -1,12 +1,14 @@
 import pygame
 import settings
+from food import Food
 
 
 class Snake:
     def __init__(self):
         self.snake_head_pos = [100, 500]
         self.snake_pos = [self.snake_head_pos,  # first position is head
-                          [98, 500], [96, 500], [94, 500], [92, 500], [90, 500], [88, 500], [86, 500], [84, 500], [82, 500], [80, 500]]
+                          [98, 500], [96, 500], [94, 500], [92, 500], [90, 500], [88, 500], [86, 500], [84, 500], [82, 500], [80, 500],
+                          [78, 500], [76, 500], [74, 500], [72, 500], [60, 500], [68, 500], [66, 500], [64, 500], [62, 500], [60, 500]]
 
         self.color = settings.GREEN
         self.direction = "RIGHT"
@@ -45,8 +47,6 @@ class Snake:
         if keys[pygame.K_LEFT] or keys[pygame.K_a]:
             self.change_to = "LEFT"
 
-    def movement(self):
-        self.move()
         self.change_direction()
 
         if self.direction == "UP":
@@ -58,9 +58,25 @@ class Snake:
         elif self.direction == "LEFT":
             self.snake_head_pos[0] -= 2
 
+    def movement(self, food: Food):
+        self.move()
+
         self.snake_pos.insert(0, list(self.snake_head_pos))
-        self.snake_pos.pop()
+        # eat apple
+        food_was_eaten = False
+        for x in range(15):
+            if self.snake_head_pos[0] + x <= food.get_pos()[0] + 20 and self.snake_head_pos[0] + x >= food.get_pos()[0]:
+                for y in range(15):
+                    if self.snake_head_pos[1] + y <= food.get_pos()[1] + 20 and self.snake_head_pos[1] + y >= food.get_pos()[1]:
+                        food.make_new()
+                        food_was_eaten = True
+                        break
+        if not food_was_eaten:
+            self.snake_pos.pop()
+        else:
+            for _ in range(10):
+                self.snake_pos.insert(0, list(self.snake_head_pos))
 
     def draw(self, screen):
         for pos in self.snake_pos:
-            pygame.draw.rect(screen, self.color, (pos[0], pos[1], 10, 10))
+            pygame.draw.rect(screen, self.color, (pos[0], pos[1], 15, 15))

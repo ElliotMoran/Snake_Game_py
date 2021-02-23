@@ -29,7 +29,7 @@ def main_loop():
 
         screen.fill(settings.BLACK)
 
-        snake.movement()
+        snake.movement(food)
         if not snake.check_collision():
             running = False
         snake.draw(screen)
