@@ -7,13 +7,13 @@ class Snake:
     def __init__(self):
         self.snake_head_pos = [100, 500]
         self.snake_pos = [[100, 500],  # first position is head
-                            [95, 500], [85, 500], [80, 500], [75, 500]]
+                            [85, 500], [70, 500]]
 
         self.color = settings.GREEN
         self.direction = "RIGHT"
         self.change_to = self.direction
 
-        self.speed = 5
+        self.speed = 15
 
     def change_direction(self):
         # checking whether it is possible to change the direction of the snake
@@ -81,7 +81,7 @@ class Snake:
             self.snake_pos.pop()
         else:
             self.snake_pos.insert(1, list(self.snake_pos[1]))
-            self.snake_pos.insert(1, list(self.snake_pos[1]))
+            # self.snake_pos.insert(1, list(self.snake_pos[1]))
 
     def draw(self, screen):
         for pos in self.snake_pos:
