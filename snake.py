@@ -14,6 +14,7 @@ class Snake:
         self.change_to = self.direction
 
         self.speed = 15
+        self.score = 0
 
         self.image_snake_head_up = pygame.image.load(
             'data/Snake_head.png').convert()
@@ -71,10 +72,10 @@ class Snake:
     # collision and off-screen check
     def check_collision(self) -> bool:
         # off-sceen check
-        if self.snake_head_pos[0] <= 1 or self.snake_head_pos[0] > settings.width - 15:
+        if self.snake_head_pos[0] <= 1 or self.snake_head_pos[0] > settings.width - 18:
             # off-screen
             return False
-        if self.snake_head_pos[1] <= 1 or self.snake_head_pos[1] > settings.height - 15:
+        if self.snake_head_pos[1] <= 1 or self.snake_head_pos[1] > settings.height - 18:
             # off-screen
             return False
 
@@ -123,6 +124,8 @@ class Snake:
 
         if not food_was_eaten:
             self.snake_pos.pop()
+        else:
+            self.score += 1
 
     def draw(self, screen: pygame.display) -> None:
         self.change_tail_direction()
