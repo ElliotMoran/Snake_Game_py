@@ -27,13 +27,15 @@ def main_loop():
                 if event.key == pygame.K_ESCAPE:
                     exit()
 
-        screen.fill(settings.BLACK)
 
         snake.movement(food)
-        if not snake.check_collision():
-            running = False
+
+        screen.fill(settings.BLACK)
         snake.draw(screen)
         food.draw(screen)
+
+        if not snake.check_collision():
+            running = False
 
         pygame.display.flip()
         clock.tick(settings.fps)
