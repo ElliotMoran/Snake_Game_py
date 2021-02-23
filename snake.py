@@ -6,13 +6,14 @@ from food import Food
 class Snake:
     def __init__(self):
         self.snake_head_pos = [100, 500]
-        self.snake_pos = [self.snake_head_pos,  # first position is head
-                          [98, 500], [96, 500], [94, 500], [92, 500], [90, 500], [88, 500], [86, 500], [84, 500], [82, 500], [80, 500],
-                          [78, 500], [76, 500], [74, 500], [72, 500], [60, 500], [68, 500], [66, 500], [64, 500], [62, 500], [60, 500]]
+        self.snake_pos = [[100, 500],  # first position is head
+                            [90, 500], [80, 500]]
 
         self.color = settings.GREEN
         self.direction = "RIGHT"
         self.change_to = self.direction
+
+        self.speed = 15
 
     def change_direction(self):
         # checking whether it is possible to change the direction of the snake
@@ -26,12 +27,16 @@ class Snake:
     # collision and off-screen check
     def check_collision(self) -> bool:
         # off-sceen check
-        if self.snake_head_pos[0] < 1 or self.snake_head_pos[0] > settings.width - 10:
+        if self.snake_head_pos[0] < 1 or self.snake_head_pos[0] > settings.width - 15:
             # off-screen
             return False
-        if self.snake_head_pos[1] < 1 or self.snake_head_pos[1] > settings.height - 10:
+        if self.snake_head_pos[1] < 1 or self.snake_head_pos[1] > settings.height - 15:
             # off-screen
             return False
+
+        for pos in self.snake_pos[1:]:
+            if self.snake_head_pos[0] == pos[0] and self.snake_head_pos[1] == pos[1]:
+                return False
 
         return True
 
@@ -50,18 +55,19 @@ class Snake:
         self.change_direction()
 
         if self.direction == "UP":
-            self.snake_head_pos[1] -= 2
+            self.snake_head_pos[1] -= self.speed
         elif self.direction == "DOWN":
-            self.snake_head_pos[1] += 2
+            self.snake_head_pos[1] += self.speed
         elif self.direction == "RIGHT":
-            self.snake_head_pos[0] += 2
+            self.snake_head_pos[0] += self.speed
         elif self.direction == "LEFT":
-            self.snake_head_pos[0] -= 2
+            self.snake_head_pos[0] -= self.speed
 
     def movement(self, food: Food):
         self.move()
-
         self.snake_pos.insert(0, list(self.snake_head_pos))
+
+
         # eat apple
         food_was_eaten = False
         for x in range(15):
@@ -73,9 +79,8 @@ class Snake:
                         break
         if not food_was_eaten:
             self.snake_pos.pop()
-        else:
-            for _ in range(10):
-                self.snake_pos.insert(0, list(self.snake_head_pos))
+        # else:
+        #     self.snake_pos.insert(0, list(self.snake_head_pos))
 
     def draw(self, screen):
         for pos in self.snake_pos:
