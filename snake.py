@@ -71,10 +71,10 @@ class Snake:
     # collision and off-screen check
     def check_collision(self) -> bool:
         # off-sceen check
-        if self.snake_head_pos[0] < 1 or self.snake_head_pos[0] > settings.width - 20:
+        if self.snake_head_pos[0] <= 1 or self.snake_head_pos[0] > settings.width - 15:
             # off-screen
             return False
-        if self.snake_head_pos[1] < 1 or self.snake_head_pos[1] > settings.height - 20:
+        if self.snake_head_pos[1] <= 1 or self.snake_head_pos[1] > settings.height - 15:
             # off-screen
             return False
 
