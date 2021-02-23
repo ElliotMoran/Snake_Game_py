@@ -120,9 +120,6 @@ class Snake:
 
         if not food_was_eaten:
             self.snake_pos.pop()
-        else:
-            # make longer if apple was eaten
-            self.snake_pos.insert(1, list(self.snake_pos[1]))
 
     def draw(self, screen: pygame.display) -> None:
         self.change_tail_direction()
