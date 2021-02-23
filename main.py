@@ -27,7 +27,6 @@ def main_loop():
                 if event.key == pygame.K_ESCAPE:
                     exit()
 
-
         snake.movement(food)
 
         screen.fill(settings.BLACK)
