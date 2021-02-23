@@ -17,6 +17,8 @@ def main_loop():
     snake = Snake()
     food = Food()
 
+    background_image = pygame.image.load('data/background.png').convert()
+
     # main loop
     running = True
     while running:
@@ -29,7 +31,7 @@ def main_loop():
 
         snake.movement(food)
 
-        screen.fill(settings.BLACK)
+        screen.blit(background_image, (0, 0))
         snake.draw(screen)
         food.draw(screen)
 
