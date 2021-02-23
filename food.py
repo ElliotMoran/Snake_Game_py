@@ -6,15 +6,19 @@ import settings
 class Food:
     def __init__(self):
         self.x, self.y = random.randint(
-            10, settings.width - 10), random.randint(10, settings.height - 10)
+            10, settings.width - 20), random.randint(10, settings.height - 20)
         self.color = settings.RED
 
+        self.image = pygame.image.load('data/Apple.png').convert()
+        self.image.set_colorkey(settings.BLACK)
+        
+        
     def get_pos(self):
         return self.x, self.y
 
     def draw(self, screen):
-        pygame.draw.rect(screen, self.color, (self.x, self.y, 10, 10))
+        screen.blit(self.image, (self.x, self.y))
 
     def make_new(self):
         self.x, self.y = random.randint(
-            10, settings.width - 10), random.randint(10, settings.height - 10)
+            10, settings.width - 20), random.randint(10, settings.height - 20)
