@@ -7,7 +7,7 @@ class Snake:
     def __init__(self):
         self.snake_head_pos = [100, 500]
         self.snake_pos = [[100, 500],  # first position is head
-                            [90, 500], [80, 500]]
+                            [95, 500], [85, 500], [80, 500], [75, 500]]
 
         self.color = settings.GREEN
         self.direction = "RIGHT"
