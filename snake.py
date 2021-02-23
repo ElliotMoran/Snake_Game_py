@@ -25,6 +25,12 @@ class Snake:
         self.image_snake_body_left = pygame.transform.rotate(self.image_snake_body_up, 90)
         self.image_snake_body_down = pygame.transform.rotate(self.image_snake_body_up, 180)
 
+        self.image_snake_tail_up = pygame.image.load('data/Snake_tail.png').convert()
+        self.image_snake_tail_right = pygame.transform.rotate(self.image_snake_tail_up, 270)
+        self.image_snake_tail_left = pygame.transform.rotate(self.image_snake_tail_up, 90)
+        self.image_snake_tail_down = pygame.transform.rotate(self.image_snake_tail_up, 180)
+        self.tail_direction = "RIGHT"
+
     def change_direction(self):
         # checking whether it is possible to change the direction of the snake
         if any((self.change_to == "RIGHT" and not self.direction == "LEFT",
@@ -33,6 +39,21 @@ class Snake:
                 self.change_to == "DOWN" and not self.direction == "UP")):
             # change direction
             self.direction = self.change_to
+
+    def change_tail_direction(self):
+        pos_tail = self.snake_pos[-1]
+        pos_pre_tail = self.snake_pos[-2]
+        # print(pos_tail[0])
+        # print(pos_pre_tail[0])
+        # print()
+        if pos_tail[0] < pos_pre_tail[0]:
+            self.tail_direction = "RIGHT"
+        if pos_tail[0] > pos_pre_tail[0]:
+            self.tail_direction = "LEFT"
+        if pos_tail[1] < pos_pre_tail[1]:
+            self.tail_direction = "DOWN"
+        if pos_tail[1] > pos_pre_tail[1]:
+            self.tail_direction = "UP"
 
     # collision and off-screen check
     def check_collision(self) -> bool:
@@ -94,6 +115,7 @@ class Snake:
             # self.snake_pos.insert(1, list(self.snake_pos[1]))
 
     def draw(self, screen):
+        self.change_tail_direction()
         for i in range(len(self.snake_pos)):
             pos = self.snake_pos[i]
             # draw snake head
@@ -101,18 +123,48 @@ class Snake:
                 # change head rotation
                 if self.direction == "UP":
                     image_snake_head = self.image_snake_head_up
-                    image_snake_body = self.image_snake_body_up
                 elif self.direction == "DOWN":
                     image_snake_head = self.image_snake_head_down
-                    image_snake_body = self.image_snake_body_down
                 elif self.direction == "RIGHT":
                     image_snake_head = self.image_snake_head_right
-                    image_snake_body = self.image_snake_body_right
                 elif self.direction == "LEFT":
                     image_snake_head = self.image_snake_head_left
-                    image_snake_body = self.image_snake_body_left
 
                 screen.blit(image_snake_head, (pos[0], pos[1]))
+
+            elif i == len(self.snake_pos) - 1:
+                #draw snake tail
+                if self.tail_direction == "UP":
+                    image_snake_tail = self.image_snake_tail_up
+                elif self.tail_direction == "DOWN":
+                    image_snake_tail = self.image_snake_tail_down
+                elif self.tail_direction == "RIGHT":
+                    image_snake_tail = self.image_snake_tail_right
+                elif self.tail_direction == "LEFT":
+                    image_snake_tail = self.image_snake_tail_left
+
+                screen.blit(image_snake_tail, (pos[0], pos[1]))
+
             else:
                 # draw snake body
+                pos = self.snake_pos[i]
+                pos_pre = self.snake_pos[i - 1]
+                if pos[0] < pos_pre[0]:
+                    direction = "RIGHT"
+                if pos[0] > pos_pre[0]:
+                    direction = "LEFT"
+                if pos[1] < pos_pre[1]:
+                    direction = "DOWN"
+                if pos[1] > pos_pre[1]:
+                    direction = "UP"
+
+                if direction == "UP":
+                    image_snake_body = self.image_snake_body_up
+                elif direction == "DOWN":
+                    image_snake_body = self.image_snake_body_down
+                elif direction == "RIGHT":
+                    image_snake_body = self.image_snake_body_right
+                elif direction == "LEFT":
+                    image_snake_body = self.image_snake_body_left
+
                 screen.blit(image_snake_body, (pos[0], pos[1]))
