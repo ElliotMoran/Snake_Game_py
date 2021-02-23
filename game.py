@@ -14,10 +14,13 @@ class Game:
 
         self.background_image = None
 
-    def initialization(self) -> None:
+    # pygame and other object inizialization
+    def inizialization(self) -> None:
+        # pygame inizialization
         pygame.init()
         pygame.display.set_caption(settings.caption)
 
+        # other objects inizialization
         self.screen = pygame.display.set_mode(
             (settings.width, settings.height))
         self.snake = Snake()
@@ -26,11 +29,13 @@ class Game:
         self.background_image = pygame.image.load(
             'data/background.png').convert()
 
+    # draw sprites and bg
     def draw_game_objects(self) -> None:
         self.screen.blit(self.background_image, (0, 0))
         self.snake.draw(self.screen)
         self.food.draw(self.screen)
 
+    # game loop
     def main_loop(self) -> None:
         running = True
         while running:
@@ -54,5 +59,5 @@ class Game:
 
 if __name__ == '__main__':
     game = Game()
-    game.initialization()
+    game.inizialization()
     game.main_loop()
