@@ -15,6 +15,16 @@ class Snake:
 
         self.speed = 15
 
+        self.image_snake_head_up = pygame.image.load('data/Snake_head.png').convert()
+        self.image_snake_head_down = pygame.transform.rotate(self.image_snake_head_up, 180)
+        self.image_snake_head_right = pygame.transform.rotate(self.image_snake_head_up, 270)
+        self.image_snake_head_left = pygame.transform.rotate(self.image_snake_head_up, 90)
+
+        self.image_snake_body_up = pygame.image.load('data/Snake_body.png').convert()
+        self.image_snake_body_right = pygame.transform.rotate(self.image_snake_body_up, 270)
+        self.image_snake_body_left = pygame.transform.rotate(self.image_snake_body_up, 90)
+        self.image_snake_body_down = pygame.transform.rotate(self.image_snake_body_up, 180)
+
     def change_direction(self):
         # checking whether it is possible to change the direction of the snake
         if any((self.change_to == "RIGHT" and not self.direction == "LEFT",
@@ -84,5 +94,25 @@ class Snake:
             # self.snake_pos.insert(1, list(self.snake_pos[1]))
 
     def draw(self, screen):
-        for pos in self.snake_pos:
-            pygame.draw.rect(screen, self.color, (pos[0], pos[1], 15, 15))
+        for i in range(len(self.snake_pos)):
+            pos = self.snake_pos[i]
+            # draw snake head
+            if i == 0:
+                # change head rotation
+                if self.direction == "UP":
+                    image_snake_head = self.image_snake_head_up
+                    image_snake_body = self.image_snake_body_up
+                elif self.direction == "DOWN":
+                    image_snake_head = self.image_snake_head_down
+                    image_snake_body = self.image_snake_body_down
+                elif self.direction == "RIGHT":
+                    image_snake_head = self.image_snake_head_right
+                    image_snake_body = self.image_snake_body_right
+                elif self.direction == "LEFT":
+                    image_snake_head = self.image_snake_head_left
+                    image_snake_body = self.image_snake_body_left
+
+                screen.blit(image_snake_head, (pos[0], pos[1]))
+            else:
+                # draw snake body
+                screen.blit(image_snake_body, (pos[0], pos[1]))
