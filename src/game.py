@@ -52,6 +52,7 @@ class Game:
 
             if not self.snake.check_collision():
                 running = False
+                print(self.snake.score)
 
             pygame.display.flip()
             self.clock.tick(settings.fps)
