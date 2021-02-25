@@ -5,9 +5,9 @@ from food import Food
 
 class Snake:
     def __init__(self):
-        self.snake_head_pos = [100, 500]
-        self.snake_pos = [[100, 500],  # first position is head
-                          [85, 500], [70, 500]]
+        self.snake_head_pos = [90, 495]
+        self.snake_pos = [[90, 495],  # first position is head
+                          [75, 495], [60, 495]]
 
         self.color = settings.GREEN
         self.direction = "RIGHT"
@@ -72,10 +72,10 @@ class Snake:
     # collision and off-screen check
     def check_collision(self) -> bool:
         # off-sceen check
-        if self.snake_head_pos[0] <= 1 or self.snake_head_pos[0] > settings.width - 18:
+        if self.snake_head_pos[0] < 0 or self.snake_head_pos[0] > settings.width - 15:
             # off-screen
             return False
-        if self.snake_head_pos[1] <= 1 or self.snake_head_pos[1] > settings.height - 18:
+        if self.snake_head_pos[1] < 0 or self.snake_head_pos[1] > settings.height - 15:
             # off-screen
             return False
 
@@ -115,9 +115,9 @@ class Snake:
         # eat apple
         food_was_eaten = False
         for x in range(15):
-            if self.snake_head_pos[0] + x <= food.get_pos()[0] + 20 and self.snake_head_pos[0] + x >= food.get_pos()[0]:
+            if self.snake_head_pos[0] + x < food.get_pos()[0] + 15 and self.snake_head_pos[0] + x > food.get_pos()[0]:
                 for y in range(15):
-                    if self.snake_head_pos[1] + y <= food.get_pos()[1] + 20 and self.snake_head_pos[1] + y >= food.get_pos()[1]:
+                    if self.snake_head_pos[1] + y < food.get_pos()[1] + 15 and self.snake_head_pos[1] + y > food.get_pos()[1]:
                         food.make_new(self.snake_pos)
                         food_was_eaten = True
                         break
