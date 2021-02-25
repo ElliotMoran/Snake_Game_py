@@ -1,6 +1,6 @@
 # game settings
 caption = "Snake Game"
-width = 1000
+width = 990
 height = 600
 fps = 30
 
