@@ -11,7 +11,7 @@ class Food:
         self.image = pygame.image.load('data/Apple.png').convert()
         self.image.set_colorkey(settings.BLACK)
 
-        self.make_new([[90, 500], [75, 500], [60, 500]])  # first snake pos
+        self.make_new([[90, 495], [75, 495], [60, 495]])  # first snake pos
 
     def get_pos(self) -> tuple:
         return self.x, self.y
