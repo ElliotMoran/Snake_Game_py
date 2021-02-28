@@ -30,7 +30,7 @@ class Game:
         self.food = Food()
         self.clock = pygame.time.Clock()
         self.background_image = pygame.image.load(
-            'data/background.png').convert()
+            'data/background/background.png').convert()
         self.font = pygame.font.SysFont('Arial', 36, True)
 
     # draw sprites and bg

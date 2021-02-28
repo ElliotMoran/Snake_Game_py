@@ -17,7 +17,7 @@ class Snake:
         self.score = 0
 
         self.image_snake_head_up = pygame.image.load(
-            'data/Snake_head.png').convert()
+            'data/snake/Snake_head.png').convert()
         self.image_snake_head_up.set_colorkey(settings.BLACK)
         self.image_snake_head_down = pygame.transform.rotate(
             self.image_snake_head_up, 180)
@@ -27,7 +27,7 @@ class Snake:
             self.image_snake_head_up, 90)
 
         self.image_snake_body_up = pygame.image.load(
-            'data/Snake_body.png').convert()
+            'data/snake/Snake_body.png').convert()
         self.image_snake_body_up.set_colorkey(settings.BLACK)
         self.image_snake_body_right = pygame.transform.rotate(
             self.image_snake_body_up, 270)
@@ -37,7 +37,7 @@ class Snake:
             self.image_snake_body_up, 180)
 
         self.image_snake_tail_up = pygame.image.load(
-            'data/Snake_tail.png').convert()
+            'data/snake/Snake_tail.png').convert()
         self.image_snake_tail_up.set_colorkey(settings.BLACK)
         self.image_snake_tail_right = pygame.transform.rotate(
             self.image_snake_tail_up, 270)

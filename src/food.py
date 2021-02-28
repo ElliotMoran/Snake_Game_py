@@ -8,7 +8,7 @@ class Food:
         self.x, self.y = None, None
         self.color = settings.RED
 
-        self.image = pygame.image.load('data/Apple.png').convert()
+        self.image = pygame.image.load('data/food/Apple.png').convert()
         self.image.set_colorkey(settings.BLACK)
 
         self.make_new([[90, 495], [75, 495], [60, 495]])  # first snake pos
