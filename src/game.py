@@ -12,6 +12,7 @@ class Game:
         self.screen = None
 
         self.background_image = None
+        self.background_sound = None
         self.paused = False
         self.fps = settings.fps
 
@@ -20,6 +21,7 @@ class Game:
     # pygame and other object inizialization
     def inizialization(self) -> None:
         # pygame inizialization
+        # pygame.mixer.pre_init(44100, 16, 2, 4096)
         pygame.init()
         pygame.display.set_caption(settings.caption)
 
@@ -31,6 +33,8 @@ class Game:
         self.clock = pygame.time.Clock()
         self.background_image = pygame.image.load(
             'data/background/background.png').convert()
+        # self.background_sound = pygame.mixer.Sound(
+        #     'data/background/background_music.wav')
         self.font = pygame.font.SysFont('Arial', 36, True)
 
     # draw sprites and bg
@@ -52,6 +56,7 @@ class Game:
                         self.paused = not self.paused
 
             if not self.paused:
+                # self.background_sound.unpause()
                 self.snake.movement(self.food)
 
                 self.draw_game_objects()
@@ -61,12 +66,13 @@ class Game:
                     self.game_over()
             else:
                 self.screen.blit(render, (435, 250))
-
+                # self.background_sound.pause()
 
             pygame.display.flip()
             self.clock.tick(self.fps)
 
     def game_over(self):
-        render = self.font.render(f"Your score: {self.snake.score}!", 0, settings.RED)
+        render = self.font.render(
+            f"Your score: {self.snake.score}!", 0, settings.RED)
         self.screen.blit(render, (400, 250))
         print(f"Your score: {self.snake.score}!")
