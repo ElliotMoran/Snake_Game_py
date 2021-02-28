@@ -13,6 +13,10 @@ class Game:
         self.screen = None
 
         self.background_image = None
+        self.paused = False
+        self.fps = settings.fps
+
+        self.font = None
 
     # pygame and other object inizialization
     def inizialization(self) -> None:
@@ -28,6 +32,7 @@ class Game:
         self.clock = pygame.time.Clock()
         self.background_image = pygame.image.load(
             'data/background.png').convert()
+        self.font = pygame.font.SysFont('Arial', 36, True)
 
     # draw sprites and bg
     def draw_game_objects(self) -> None:
@@ -38,27 +43,31 @@ class Game:
     # game loop
     def main_loop(self) -> None:
         running = True
+        render = self.font.render("PAUSE", 0, settings.RED)
         while running:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     exit()
                 if event.type == pygame.KEYUP:
                     if event.key == pygame.K_ESCAPE:
-                        exit()
+                        self.paused = not self.paused
 
-            self.snake.movement(self.food)
+            if not self.paused:
+                self.snake.movement(self.food)
 
-            self.draw_game_objects()
+                self.draw_game_objects()
 
-            if not self.snake.check_collision():
-                running = False
-                print(f"Your score: {self.snake.score}!")
+                if not self.snake.check_collision():
+                    running = False
+                    self.game_over()
+            else:
+                self.screen.blit(render, (435, 250))
+
 
             pygame.display.flip()
-            self.clock.tick(settings.fps)
+            self.clock.tick(self.fps)
 
-
-if __name__ == '__main__':
-    game = Game()
-    game.inizialization()
-    game.main_loop()
+    def game_over(self):
+        render = self.font.render(f"Your score: {self.snake.score}!", 0, settings.RED)
+        self.screen.blit(render, (400, 250))
+        print(f"Your score: {self.snake.score}!")
