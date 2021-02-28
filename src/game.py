@@ -1,4 +1,3 @@
-#! pypy3
 import pygame
 import settings
 from snake import Snake
