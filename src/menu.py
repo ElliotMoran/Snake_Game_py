@@ -76,8 +76,8 @@ class Start_button(Button):
 
 class Menu:
     def __init__(self) -> None:
-        self.start_button = Start_button(250, 50, 150, 50, "START")
-        self.exit_button = Exit_button(250, 150, 150, 50, "EXIT")
+        self.start_button = Start_button(420,100, 150, 50, "START")
+        self.exit_button = Exit_button(420, 190, 150, 50, "EXIT")
 
     def update(self, screen: pygame.display) -> bool:
         self.exit_button.draw(screen)
