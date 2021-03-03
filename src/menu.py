@@ -1,3 +1,4 @@
+import sys
 import pygame
 import settings
 
@@ -43,10 +44,18 @@ class Button:
         print(f"{self.text} button was pressed!")
 
 
+class Exit_button(Button):
+    def __init__(self, x: int, y: int, x_size: int, y_size: int, text: str = "EXIT"):
+        super().__init__(x, y, x_size, y_size, text)
+
+    def on_click(self):
+        sys.exit()
+
+
 class Menu:
     def __init__(self) -> None:
         self.start_button=Button(250, 50, 150, 50, "START")
-        self.exit_button=Button(250, 150, 150, 50, "EXIT")
+        self.exit_button=Exit_button(250, 150, 150, 50, "EXIT")
 
         self.buttons=[self.start_button, self.exit_button]
 
