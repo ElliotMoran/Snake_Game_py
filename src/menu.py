@@ -84,9 +84,13 @@ class Menu:
     def __init__(self) -> None:
         self.start_button = Start_button(420, 100, 150, 50, "START")
         self.exit_button = Exit_button(420, 190, 150, 50, "EXIT")
+        self.background_image = pygame.image.load(
+            'data/background/menu_background.png')
+        self.background_image = pygame.transform.scale(
+            self.background_image, (settings.width, settings.height))
 
     def update(self, screen: pygame.display) -> bool:
-        screen.fill(settings.BLACK)
+        screen.blit(self.background_image, (0, 0))
         self.exit_button.draw(screen)
         self.start_button.draw(screen)
         self.exit_button.check_state()
