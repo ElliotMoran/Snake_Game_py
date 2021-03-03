@@ -33,4 +33,4 @@ class Food:
             if flag:
                 break
             self.x, self.y = random.randrange(
-                0, settings.width, 15), random.randrange(0, settings.height, 15)
+                0, settings.width - 15, 15), random.randrange(0, settings.height - 15, 15)
