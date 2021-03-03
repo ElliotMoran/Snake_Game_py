@@ -2,6 +2,7 @@ import pygame
 import settings
 from snake import Snake
 from food import Food
+from menu import Menu
 
 
 class Game:
@@ -10,13 +11,14 @@ class Game:
         self.food = None
         self.clock = None
         self.screen = None
+        self.menu = None
 
         self.background_image = None
         self.background_sound = None
         self.paused = False
         self.fps = settings.fps
-
         self.font = None
+        self.menu = None
 
     # pygame and other object inizialization
     def inizialization(self) -> None:
@@ -36,6 +38,7 @@ class Game:
         # self.background_sound = pygame.mixer.Sound(
         #     'data/background/background_music.wav')
         self.font = pygame.font.SysFont('Arial', 36, True)
+        self.menu = Menu()
 
     # draw sprites and bg
     def draw_game_objects(self) -> None:
@@ -66,6 +69,7 @@ class Game:
                     self.game_over()
             else:
                 self.screen.blit(render, (435, 250))
+                self.menu.update(self.screen)
                 # self.background_sound.pause()
 
             pygame.display.flip()
