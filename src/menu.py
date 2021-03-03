@@ -80,6 +80,7 @@ class Menu:
         self.exit_button = Exit_button(420, 190, 150, 50, "EXIT")
 
     def update(self, screen: pygame.display) -> bool:
+        screen.fill(settings.BLACK)
         self.exit_button.draw(screen)
         self.start_button.draw(screen)
         self.exit_button.check_state()
