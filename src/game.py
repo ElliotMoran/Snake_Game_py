@@ -49,16 +49,20 @@ class Game:
         paused = False
         render = self.font.render("PAUSE", 1, settings.RED)
         back_to_menu_button = Back_to_menu_button(780, 560, 210, 40)
+
         while running:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     exit()
                 if not in_menu:
+                    # not in menu
                     if event.type == pygame.KEYUP:
                         if event.key == pygame.K_ESCAPE:
                             paused = not paused
             if not in_menu:
+                # not in menu
                 if not paused:
+                    # game is not in pause
                     self.snake.movement(self.food)
 
                     self.draw_game_objects()
@@ -67,6 +71,7 @@ class Game:
                         self.game_over()
                         self.reset()
                 else:
+                    # game in pause
                     render_score = self.font.render(
                         f"Your score: {self.snake.score}!", 1, settings.RED)
                     self.screen.blit(render_score, (10, 10))
@@ -77,6 +82,7 @@ class Game:
                         in_menu = not in_menu
                         paused = False
             else:
+                # in menu
                 if self.menu.update(self.screen):
                     in_menu = not in_menu
 
