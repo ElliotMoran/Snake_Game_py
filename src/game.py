@@ -47,7 +47,7 @@ class Game:
     def main_loop(self) -> None:
         in_menu = True
         running = True
-        render = self.font.render("PAUSE", 0, settings.RED)
+        render = self.font.render("PAUSE", 1, settings.RED)
         while running:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -63,9 +63,12 @@ class Game:
                     self.draw_game_objects()
 
                     if not self.snake.check_collision():
-                        running = False
                         self.game_over()
+                        self.reset()
                 else:
+                    render_score = self.font.render(
+                        f"Your score: {self.snake.score}!", 1, settings.RED)
+                    self.screen.blit(render_score, (10, 10))
                     self.screen.blit(render, (435, 250))
             else:
                 if self.menu.update(self.screen):
@@ -74,8 +77,11 @@ class Game:
             pygame.display.flip()
             self.clock.tick(self.fps)
 
+    # game over func
     def game_over(self):
-        render = self.font.render(
-            f"Your score: {self.snake.score}!", 0, settings.RED)
-        self.screen.blit(render, (400, 250))
         print(f"Your score: {self.snake.score}!")
+
+    # reset for new game
+    def reset(self):
+        self.snake = Snake()
+        self.food = Food()
