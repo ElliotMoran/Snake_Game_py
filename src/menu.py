@@ -74,9 +74,15 @@ class Start_button(Button):
         return False
 
 
+class Back_to_menu_button(Start_button):
+    def __init__(self, x: int, y: int, x_size: int, y_size: int, text: str = "BACK TO MENU") -> None:
+        super().__init__(x, y, x_size, y_size, text)
+        self.font = pygame.font.SysFont('Arial', 20, True)
+
+
 class Menu:
     def __init__(self) -> None:
-        self.start_button = Start_button(420,100, 150, 50, "START")
+        self.start_button = Start_button(420, 100, 150, 50, "START")
         self.exit_button = Exit_button(420, 190, 150, 50, "EXIT")
 
     def update(self, screen: pygame.display) -> bool:
