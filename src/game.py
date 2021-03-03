@@ -23,7 +23,6 @@ class Game:
     # pygame and other object inizialization
     def inizialization(self) -> None:
         # pygame inizialization
-        # pygame.mixer.pre_init(44100, 16, 2, 4096)
         pygame.init()
         pygame.display.set_caption(settings.caption)
 
@@ -35,8 +34,6 @@ class Game:
         self.clock = pygame.time.Clock()
         self.background_image = pygame.image.load(
             'data/background/background.png').convert()
-        # self.background_sound = pygame.mixer.Sound(
-        #     'data/background/background_music.wav')
         self.font = pygame.font.SysFont('Arial', 36, True)
         self.menu = Menu()
 
@@ -48,29 +45,31 @@ class Game:
 
     # game loop
     def main_loop(self) -> None:
+        in_menu = True
         running = True
         render = self.font.render("PAUSE", 0, settings.RED)
         while running:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     exit()
-                if event.type == pygame.KEYUP:
-                    if event.key == pygame.K_ESCAPE:
-                        self.paused = not self.paused
+                if not in_menu:
+                    if event.type == pygame.KEYUP:
+                        if event.key == pygame.K_ESCAPE:
+                            self.paused = not self.paused
+            if not in_menu:
+                if not self.paused:
+                    self.snake.movement(self.food)
 
-            if not self.paused:
-                # self.background_sound.unpause()
-                self.snake.movement(self.food)
+                    self.draw_game_objects()
 
-                self.draw_game_objects()
-
-                if not self.snake.check_collision():
-                    running = False
-                    self.game_over()
+                    if not self.snake.check_collision():
+                        running = False
+                        self.game_over()
+                else:
+                    self.screen.blit(render, (435, 250))
             else:
-                self.screen.blit(render, (435, 250))
-                self.menu.update(self.screen)
-                # self.background_sound.pause()
+                if self.menu.update(self.screen):
+                    in_menu = not in_menu
 
             pygame.display.flip()
             self.clock.tick(self.fps)
